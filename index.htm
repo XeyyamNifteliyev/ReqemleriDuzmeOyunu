@@ -1,0 +1,141 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+
+    </style>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h3 id="h4">Sort The Numbers</h3>
+    <div class="box">
+        <div class="inner">
+            <span onclick="fastest()">Fastest</span>
+        </div>
+        <div class="inner">
+            <span onclick="slowest()">Slowest</span>
+        </div>
+    </div>
+
+    <h3 id="h3">15</h3>
+
+    <div class="center">
+        <button class="button-82-pushable" role="button">
+            <span class="button-82-shadow"></span>
+            <span class="button-82-edge"></span>
+            <span class="button-82-front text" onclick="start()">
+                Start
+            </span>
+        </button>
+    
+        <button class="button-83-pushable" role="button">
+            <span class="button-83-shadow"></span>
+            <span class="button-83-edge"></span>
+            <span class="button-83-front text" onclick="reset()">
+                Reset
+            </span>
+        </button>
+    </div>
+
+    <table id="cdv"></table>
+
+    <script>
+        let h3 = document.getElementById('h3')
+        let cdv = document.getElementById('cdv')
+        // document.getElementbyId('cdv').disabled = false;
+        // document.getElementbyId('cdv').disabled = true;
+        let kod = ''
+        let arr = []
+        let sira = 1
+        let sn = 15
+        let count
+
+
+
+
+        function fastest() {
+            sn = 10
+            h3.innerHTML = sn
+        }
+
+
+        function slowest() {
+            sn = 20
+            h3.innerHTML = sn
+        }
+
+        for (let i = 1; i <= 16; i++) {
+            arr.push(i)
+        }
+
+        for (let i = 1; i <= 4; i++) {
+            kod += '<tr>'
+            for (let j = 1; j <= 4; j++) {
+                let ind = rnd(0, arr.length - 1)
+                kod += `<td onclick="ac(this)">${arr[ind]}</td>`
+                arr.splice(ind, 1)
+            }
+            kod += '</tr>'
+        }
+
+        cdv.innerHTML = kod
+
+        function gameOver(text, bg, color) {
+            let tds = cdv.getElementsByTagName("td")
+            for (let i = 0; i < tds.length; i++) {
+                tds[i].innerHTML = text[i]
+                tds[i].style.background = bg
+                tds[i].style.color = color
+            }
+
+        }
+        function timer() {
+            if (sn > 0) {
+                sn--
+                h3.innerHTML = sn
+            } else {
+                gameOver('    GAMEOVER    ', "red", "white")
+            }
+        }
+
+
+        function start() {
+            cdv.style.visibility = "visible"
+             count = setInterval(timer, 1000)
+        }
+
+
+
+
+        function ac(xana) {
+            if (xana.innerHTML == sira) {
+                xana.style.background = `green`
+                sira++
+            }
+            if (sira > 16) {
+                gameOver('    YOU  WIN    ', "green", "white")
+                clearInterval(count)
+            }
+        }
+
+
+
+
+        function reset() {
+            // window.location.reload()
+            open('index.htm', '_parent');
+        }
+
+
+
+
+        function rnd(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+</body>
+
+</html>
